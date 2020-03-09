@@ -1,0 +1,21 @@
+[
+  {
+    "name": "words",
+    "description": "Generate a list of words from a set of letters",
+    "path": "/fn/words",
+    "parameters": [
+      {
+        "name": "letters",
+        "required": true,
+        "type": "string",
+        "description": "the set of letters (no spaces or separators)"
+      },
+      {
+        "name": "min",
+        "required": true,
+        "type": "int",
+        "description": "minimum word size (e.g. 3 will only produce 3+ letter words)"
+      }
+    ]
+  }
+]

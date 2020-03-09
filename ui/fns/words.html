@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <form>
+        <input type="submit" style="display: none" />
+        <select class="form-control" id="min">
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <input type="text" class="form-control" id="letters" />
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <ul class="list-group" id="words-left"></ul>
+    </div>
+    <div class="col">
+      <ul class="list-group" id="words-right"></ul>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function() {
+    $("#letters").focus();
+
+    $("form").submit(function(event) {
+      var url = new URL("/fn/words", window.location.origin);
+      url.searchParams.append("letters", $("#letters").val());
+      url.searchParams.append("min", $("#min").val());
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          $("#words-left").html("");
+          $("#words-right").html("");
+          let side = "left";
+          data.forEach(function(word) {
+            $("#words-" + side).append(
+              '<li class="list-group-item">' + word + "</li>"
+            );
+            side = side === "left" ? "right" : "left";
+          });
+          $("#letters").select();
+        });
+      event.preventDefault();
+    });
+  });
+</script>
