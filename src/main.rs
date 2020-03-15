@@ -8,6 +8,7 @@ extern crate rocket;
 use rocket_contrib::serve::StaticFiles;
 
 mod state;
+mod sudoku;
 mod words;
 
 fn main() -> Result<(), Error> {
@@ -16,6 +17,7 @@ fn main() -> Result<(), Error> {
     rocket::ignite()
         .manage(state)
         .mount("/", StaticFiles::from("ui"))
+        .mount("/fn/sudoku", routes![sudoku::solve])
         .mount("/fn/words", routes![words::words])
         .launch();
 

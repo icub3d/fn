@@ -17,5 +17,18 @@
         "description": "minimum word size (e.g. 3 will only produce 3+ letter words)"
       }
     ]
+  },
+  {
+    "name": "sudoku",
+    "description": "Solve a sudoku board.",
+    "path": "/fn/sudoku",
+    "parameters": [
+      {
+        "name": "board",
+        "required": true,
+        "type": "string",
+        "description": "the numbers known on the board starting from the top left. Use 0 for unknown squares"
+      }
+    ]
   }
 ]

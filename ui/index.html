@@ -68,28 +68,30 @@
     <script id="function-detail-template" type="text/x-handlebars-template">
       <div class="jumbotron">
         <h1 class="display-4">{{definition.name}}</h1>
-        <p class="lead"><em>{{definition.path}}</em> - {{definition.description}}</p>
-        <h2>Query Parameters</h2>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Name</th>
-              <th scope="col">type</th>
-              <th scope="col">Required</th>
-              <th scope="col">Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#definition.parameters}}
-            <tr>
-              <th scope="row">{{name}}</th>
-              <td>{{type}}</td>
-              <td>{{required}}</td>
-              <td>{{description}}</td>
-            </tr>
-            {{/definition.parameters}}
-          </tbody>
-        </table>
+        <div class="closable">
+          <p class="lead"><em>{{definition.path}}</em> - {{definition.description}}</p>
+          <h2>Query Parameters</h2>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Name</th>
+                <th scope="col">type</th>
+                <th scope="col">Required</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              {{#definition.parameters}}
+              <tr>
+                <th scope="row">{{name}}</th>
+                <td>{{type}}</td>
+                <td>{{required}}</td>
+                <td>{{description}}</td>
+              </tr>
+              {{/definition.parameters}}
+            </tbody>
+          </table>
+        </div>
       </div>
         {{{template}}}
     </script>

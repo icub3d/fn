@@ -17,6 +17,7 @@ class Function {
             template: template
           })
         );
+        $(".jumbotron").click(() => $(".closable").toggle("slow"));
       });
   }
 }
