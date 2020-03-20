@@ -1,5 +1,5 @@
 build:
-	docker build -t docker.themarshians.com/icub3d/fn .
+	docker build -t icub3d/fn .
 
 push: 
-	docker push docker.themarshians.com/icub3d/fn
+	docker push icub3d/fn
