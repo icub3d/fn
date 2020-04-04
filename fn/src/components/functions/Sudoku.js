@@ -1,5 +1,4 @@
 import React from "react";
-import { Container, Row, Col, Form } from "react-bootstrap";
 
 import Details from "../Details";
 
@@ -18,7 +17,7 @@ export default class Sudoku extends React.Component {
     ],
   };
 
-  state = { board: "", solution: null, validated: false };
+  state = { board: "", solution: null };
 
   changed(value) {
     return (e) => {
@@ -36,56 +35,37 @@ export default class Sudoku extends React.Component {
   };
 
   handleSubmit = (e) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    } else {
-      this.setState({ validated: true });
-      this.get();
-    }
+    e.preventDefault();
+    e.stopPropagation();
+    this.get();
   };
 
   render() {
     return (
-      <Container>
+      <div className="container">
         <Details
           path={`/fn/${Sudoku.definition.title}`}
           title={Sudoku.definition.title}
           description={Sudoku.definition.description}
           parameters={Sudoku.definition.parameters}
         />
-        <Row>
-          <Col>
-            <Form
-              onSubmit={this.handleSubmit}
-              noValidate
-              validated={this.state.validated}
-            >
-              <input type="submit" style={{ display: "none" }} />
-
-              <Form.Group controlId="board">
-                <Form.Label>board</Form.Label>
-                <Form.Control
-                  required
-                  minLength="81"
-                  maxLength="81"
-                  type="text"
-                  placeholder="board"
-                  value={this.state.board}
-                  onChange={this.changed("board")}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please input a board with 81 numbers.
-                </Form.Control.Feedback>
-              </Form.Group>
-            </Form>
-          </Col>
-        </Row>
+        <form className="ui form" onSubmit={this.handleSubmit}>
+          <input type="submit" style={{ display: "none" }} />
+          <div className="field">
+            <label>board</label>
+            <input
+              type="text"
+              name="board"
+              placeholder="board"
+              value={this.state.board}
+              onChange={this.changed("board")}
+            />
+          </div>
+        </form>
         <code style={{ display: "block", whiteSpace: "pre-wrap" }}>
           {this.state.solution}
         </code>
-      </Container>
+      </div>
     );
   }
 }

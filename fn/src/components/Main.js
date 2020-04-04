@@ -1,39 +1,45 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
-import { Card, Container, Jumbotron, CardColumns } from "react-bootstrap";
+import history from "../history";
 
 class Main extends React.Component {
+  go = (to) => {
+    history.push(to);
+  };
+
   renderCards() {
     return this.props.functions.map((f) => {
       return (
-        <Card key={f.title}>
-          <Card.Body>
-            <Card.Title>{f.title}</Card.Title>
-            <Card.Text>{f.description}</Card.Text>
-            <Link className="card-link" to={`/${f.title}`}>
-              Go
-            </Link>
-          </Card.Body>
-        </Card>
+        <div
+          key={f.title}
+          className="ui link card"
+          onClick={() => this.go(`/${f.title}`)}
+        >
+          <div className="content">
+            <div className="header">{f.title}</div>
+            <div className="description">{f.description}</div>
+          </div>
+        </div>
       );
     });
   }
 
   render() {
     return (
-      <Container style={{ paddingTop: "10px" }}>
-        <Jumbotron>
-          <h1 className="display-4">Fn</h1>
-          <p className="lead">A simple set of online functions</p>
-          <hr className="my-4" />
+      <div style={{ marginTop: "50px" }}>
+        <div className="ui huge message page">
+          <h1 className="ui huge header">Fn</h1>
+          <div className="ui small header">
+            A simple set of online functions
+          </div>
+          <hr />
           <p>
             I needed a place to store some simple functions that I use
             regularly. Here they are!
           </p>
-        </Jumbotron>
-        <CardColumns>{this.renderCards()}</CardColumns>
-      </Container>
+        </div>
+        <div className="ui three stackable cards">{this.renderCards()}</div>
+      </div>
     );
   }
 }

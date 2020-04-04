@@ -1,5 +1,4 @@
 import React from "react";
-import { Container, Row, Col, Form, ListGroup } from "react-bootstrap";
 
 import Details from "../Details";
 
@@ -24,7 +23,7 @@ export default class Words extends React.Component {
     ],
   };
 
-  state = { min: 3, letters: "", words: null, validated: false };
+  state = { min: 3, letters: "", words: null };
 
   changed(value) {
     return (e) => {
@@ -44,93 +43,64 @@ export default class Words extends React.Component {
 
   renderWords = () => {
     if (this.state.words === null) return null;
-    let left = [];
-    let right = [];
 
-    this.state.words.forEach((e) =>
-      left.length > right.length ? right.push(e) : left.push(e)
-    );
+    const rows = this.state.words.map((word) => (
+      <div className="column" key={word}>
+        {word}
+      </div>
+    ));
 
     return (
-      <Row>
-        <Col>
-          <ListGroup>
-            {left.map((v) => (
-              <ListGroup.Item key={v}>{v}</ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Col>
-        <Col>
-          <ListGroup>
-            {right.map((v) => (
-              <ListGroup.Item key={v}>{v}</ListGroup.Item>
-            ))}
-          </ListGroup>
-        </Col>
-      </Row>
+      <div
+        className="ui stackable four column grid centered"
+        style={{ fontSize: "1.5em", paddingTop: "10px" }}
+      >
+        {rows}
+      </div>
     );
   };
 
   handleSubmit = (e) => {
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
-    } else {
-      this.setState({ validated: true });
-      this.get();
-    }
+    e.preventDefault();
+    e.stopPropagation();
+    this.get();
   };
 
   render() {
     return (
-      <Container>
+      <div className="container">
         <Details
           path={`/fn/${Words.definition.title}`}
           title={Words.definition.title}
           description={Words.definition.description}
           parameters={Words.definition.parameters}
         />
-        <Row>
-          <Col>
-            <Form
-              onSubmit={this.handleSubmit}
-              noValidate
-              validated={this.state.validated}
+        <form className="ui form" onSubmit={this.handleSubmit}>
+          <input type="submit" style={{ display: "none" }} />
+          <div className="field">
+            <label>letters</label>
+            <input
+              type="text"
+              name="letters"
+              placeholder="letters"
+              value={this.state.letters}
+              onChange={this.changed("letters")}
+            />
+          </div>
+          <div className="field">
+            <label>min</label>
+            <select
+              className="ui fluid dropdown"
+              value={this.state.letters}
+              onChange={this.changed("letters")}
             >
-              <input type="submit" style={{ display: "none" }} />
-
-              <Form.Group controlId="letters">
-                <Form.Label>letters</Form.Label>
-                <Form.Control
-                  required
-                  minLength="3"
-                  type="text"
-                  placeholder="letters"
-                  value={this.state.letters}
-                  onChange={this.changed("letters")}
-                />
-                <Form.Control.Feedback type="invalid">
-                  Please input at least 3 letters.
-                </Form.Control.Feedback>
-              </Form.Group>
-
-              <Form.Group controlId="min">
-                <Form.Label>min</Form.Label>
-                <Form.Control
-                  as="select"
-                  value={this.state.min}
-                  onChange={this.changed("min")}
-                >
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                </Form.Control>
-              </Form.Group>
-            </Form>
-          </Col>
-        </Row>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+        </form>
         {this.renderWords()}
-      </Container>
+      </div>
     );
   }
 }
