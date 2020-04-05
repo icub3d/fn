@@ -91,8 +91,8 @@ export default class Words extends React.Component {
             <label>min</label>
             <select
               className="ui fluid dropdown"
-              value={this.state.letters}
-              onChange={this.changed("letters")}
+              value={this.state.min}
+              onChange={this.changed("min")}
             >
               <option value="3">3</option>
               <option value="4">4</option>
